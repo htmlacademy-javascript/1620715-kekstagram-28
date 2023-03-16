@@ -1,3 +1,3 @@
 import { createPosts } from './data.js';
-
-createPosts();
+import { renderThumbnail } from './thumbnail.js';
+renderThumbnail(createPosts());
