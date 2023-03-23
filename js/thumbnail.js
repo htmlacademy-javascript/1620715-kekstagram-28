@@ -1,23 +1,23 @@
+import {createPosts} from './data.js';
+import {openBigPicture} from './big-picture.js';
+
 const thumbnailTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const container = document.querySelector('.pictures');
+const data = createPosts();
 
-const createThumbnail = ({url, likes, comments}) => {
+const createThumbnail = (item) => {
   const thumbnail = thumbnailTemplate.cloneNode(true);
-  thumbnail.querySelector('.picture__img').src = url;
-  thumbnail.querySelector('.picture__likes').textContent = likes;
-  thumbnail.querySelector('.picture__comments').textContent = comments.length;
+  thumbnail.querySelector('.picture__img').src = item.url;
+  thumbnail.querySelector('.picture__likes').textContent = item.likes;
+  thumbnail.querySelector('.picture__comments').textContent = item.comments.length;
+  thumbnail.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    openBigPicture(item);
+  });
 
   return thumbnail;
 };
 
-const renderThumbnail = (pictures) => {
-  const fragment = document.createDocumentFragment();
-  pictures.forEach((picture) => {
-    const thumbnail = createThumbnail(picture);
-    fragment.append(thumbnail);
-  });
-
-  container.append(fragment);
-};
+const renderThumbnail = () => data.forEach((item) => container.append(createThumbnail(item)));
 
 export {renderThumbnail};
