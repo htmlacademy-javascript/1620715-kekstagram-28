@@ -1,2 +1,5 @@
-import { renderThumbnail } from './thumbnail.js';
-renderThumbnail();
+import {getPicturesData} from './thumbnail.js';
+import {addFormAction} from './form.js';
+
+getPicturesData();
+addFormAction();
