@@ -4,8 +4,9 @@ import {addValidator, resetPristine, validatePristine} from './form-validate.js'
 import {renderFailMessage, renderSuccessMessage} from './send-messages.js';
 import {sendData} from './api.js';
 import {loadImg} from './add-image.js';
+import { isEscapeKey } from './util.js';
 
-const GET_URL = 'https://28.javascript.pages.academy/kekstagram';
+const POST_URL = 'https://28.javascript.pages.academy/kekstagram';
 const form = document.querySelector('.img-upload__form');
 const overlay = document.querySelector('.img-upload__overlay');
 const cancelButton = document.querySelector('#upload-cancel');
@@ -25,7 +26,7 @@ const onSendFail = () => {
 };
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape' && !evt.target.closest('.text__hashtags') &&
+  if (isEscapeKey(evt) && !evt.target.closest('.text__hashtags') &&
   !evt.target.closest('.text__description')) {
     if (document.querySelector('.error')) {
       return;
@@ -47,7 +48,7 @@ const onFormSubmit = (evt) => {
   evt.preventDefault();
   if (validatePristine()) {
     submitButton.disabled = true;
-    sendData(GET_URL, onSendSuccess, onSendFail, new FormData(evt.target));
+    sendData(POST_URL, onSendSuccess, onSendFail, new FormData(evt.target));
   }
 };
 
